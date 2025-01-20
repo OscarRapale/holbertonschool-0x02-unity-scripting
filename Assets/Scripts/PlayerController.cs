@@ -5,6 +5,9 @@ public class PlayerController : MonoBehaviour
     // Public variable to control speed, adjustable in the Inspector
     public float speed = 5f;
 
+    private int score = 0;
+
+
     // Rigidbody component reference
     private Rigidbody rb;
 
@@ -26,4 +29,21 @@ public class PlayerController : MonoBehaviour
         // Apply force to the Rigidbody to move the Player
         rb.AddForce(movement * speed);
     }
+
+    void OnTriggerEnter(Collider other)
+{
+    // Check if the Player collides with an object tagged "Pickup"
+    if (other.gameObject.CompareTag("Pickup"))
+    {
+        // Increment the score
+        score++;
+
+        // Log the updated score to the console
+        Debug.Log("Score: " + score);
+
+        // Disable the Coin GameObject
+        other.gameObject.SetActive(false);
+    }
+}
+
 }
